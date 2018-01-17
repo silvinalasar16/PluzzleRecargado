@@ -71,10 +71,12 @@ var Juego = {
           title: "¡Ups! Perdiste",
           text: "¿Quieres volver a intentarlo?",
           type: "error"
+        
         },
         function() {
           self.iniciar(self.movimientosTotales);
-        })
+        }
+      )
     });
 },
   intercambiarPosiciones: function(fila1, columna1, fila2, columna2) {
