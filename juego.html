@@ -2,9 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>BMO Arcade</title>
+  <title>Rompecabezas Recargado</title>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700" rel="stylesheet">
   <link rel="stylesheet" href="css/juego.css">
-
+  <script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script src="js/sweetalert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/sweetalert/sweetalert.css">
 </head>
 <body>
   <div class="col-40">
@@ -12,32 +15,72 @@
       <h1><strong>Rompecabeza Recargado</strong></h1>
     </div>
 
-    <div id="instrucciones">
-      <h2>Instrucciones</h2>
-      <ol>
-        <li>Selecciona las piezas que vas a mover.</li>
-        <li>Mueve las piezas seleccionadas con las flechas que aparecen en el teclado.</li>
-      </ol>
+      <div id="instrucciones">
+          <h1>Seleccionar</h1>
+      </div>
+      <form>
+        <ul>
+            <li>Cantidad de piezas por lado:
+              <input id="cantidadPiezasPorLado" type="number" min="2" value="4" maxlength="4" size="4">
+      </form> </li>
+
+      <div id="eleccionDeNivel">
+          <li>Nivel:
+            <input class="dificultad" type="radio" id= "opcion1" value="8" name="opciones">
+            <label for = "opcion1" >Fácil</label>
+
+            <input class="dificultad" type="radio" id= "opcion2" value="6" name="opciones">
+            <label for = "opcion2" >Intermedio</label>
+
+            <input class="dificultad" type="radio" id= "opcion3" value="4" name="opciones">
+            <label for = "opcion3" >Difícil</label></li>
+      </div>
+
+       </ul>
+    <div id='instrucciones'>
+        <h1>Instrucciones</h1>
+        <ul>
+          <li>Selecciona las piezas que vas a mover.</li>
+          <li>Mueve las piezas seleccionadas para encontrar el orden correcto.</li>
+        </ul>
     </div>
+
+    <div><button id="boton" class="button">Mezclar</button></div>
+    <div id="contadorMovimientos">Movimientos</br>restantes <span id="contadorDeMovimientos"></span></div>
   </div>
+
 
   <div class="col-60">
-    <div id="juego">
-      <div class='picture' id='piece1'><img src='images/10.jpg'/></div>
-      <div class='picture' id='piece2'><img src='images/20.jpg'/></div>
-      <div class='picture' id='piece3'><img src='images/30.jpg'/></div>
-      <div class='picture' id='piece4'><img src='images/40.jpg'/></div>
-      <div class='picture' id='piece5'><img src='images/50.jpg'/></div>
-      <div class='picture' id='piece6'><img src='images/60.jpg'/></div>
-      <div class='picture' id='piece7'><img src='images/70.jpg'/></div>
-      <div class='picture' id='piece8'><img src='images/80.jpg'/></div>
-      <div class='picture' id='piece9'><img src=''/></div>
-    </div>
+    <script src="js/juego.js"></script>
+      <div id="juego">
+           <canvas id="canvas" onclick="Juego.capturarMouse()"></canvas>
+      </div>
   </div>
 
-  <script src="js/juego.js"></script>
-<footer>
-    <p><strong>Proyecto Rompecabeza</strong>-Autora: Silvina Lasar</p>
-</footer>
-</body>
+  <script>
+    $(document).ready(function() {
+
+      var nivelElegido = function() {
+        var dificultad = $('#eleccionDeNivel input:checked').val()
+        var cantPiezasPorLado = document.querySelector('#cantidadPiezasPorLado').value;
+        var cantPiezas = cantPiezasPorLado*cantPiezasPorLado;
+        var cantMovimientos = cantPiezas*dificultad;
+        Juego.iniciar(cantMovimientos);
+      };
+      $( "#eleccionDeNivel input[type=radio]" ).on( "click", nivelElegido );
+
+      $('#boton').click(function(){
+        var cantPiezasPorLado = document.querySelector('#cantidadPiezasPorLado').value;
+        var cantPiezas = cantPiezasPorLado*cantPiezasPorLado;
+        var cantMovimientos = Math.max(Math.pow(cantPiezasPorLado,3),100);
+        Juego.mezclarPiezas(cantMovimientos);
+      });
+    });
+  </script>
+
+    <div id="footer">
+      Autora: Érika Silvina Lasar Poblete.
+    </div>
+
+  </body>
 </html>
