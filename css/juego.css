@@ -64,6 +64,8 @@
       margin: 0;
       vertical-align: top;
       position: static;
+      border-top-left-radius: 5%;
+      border-bottom-left-radius: 5%; 
     }
   .col-40 {
       background: rgba(15, 2, 20, 0.94);
@@ -98,7 +100,7 @@
       width: 960px;
       margin: 5% auto;
       min-height: 100%;
-      background-image: url(../images/adventure.jpg);
+      background-image: url(../images/orig_486433.jpg);
     }
 
   ul {
